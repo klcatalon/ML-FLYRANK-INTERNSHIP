@@ -1,0 +1,211 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/klcatalon/ML-FLYRANK-INTERNSHIP/blob/main/w01_research_question.ipynb%20(done)\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ocG0LGtD_J7X"
+      },
+      "source": [
+        "# ML-02 — Research Question and Provisional Lane\n",
+        "\n",
+        "[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/klcatalon/ML-01-FLYRANK-/blob/main/work/notebooks/w01_research_question.ipynb)\n",
+        "\n",
+        "This skeleton is yours to fill. Work the sections **in order** — each one has a one-line hint. Simple words, honest numbers.\n",
+        "\n",
+        "> Working with an AI assistant? Tell it to read `skills/README.md` first and load the one skill this assignment names on its card."
+      ],
+      "id": "ocG0LGtD_J7X"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "oPl1lHUX_J7f"
+      },
+      "source": [
+        "## 1. My lane (or freestyle) and why\n",
+        "\n",
+        "*Name your lane — or say 'freestyle' and describe your own question. One short paragraph: why this one?*"
+      ],
+      "id": "oPl1lHUX_J7f"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "nGYOJDzt_J7h"
+      },
+      "outputs": [],
+      "source": [],
+      "id": "nGYOJDzt_J7h"
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "I am choosing Lane 1: The Content Refresh Decision (Deciding which existing pages are worth updating vs. leaving alone). This lane is incredibly important because a company only has so much time and budget every month. Instead of guessing or wasting writing hours updating pages that won't grow, we can use data to pinpoint exactly which pages have the highest hidden potential to reclaim traffic."
+      ],
+      "metadata": {
+        "id": "QDoMa8cvAQ1l"
+      },
+      "id": "QDoMa8cvAQ1l"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "-s15vO6x_J7i"
+      },
+      "source": [
+        "## 2. The question: decision, action, cost of a wrong call\n",
+        "\n",
+        "*What decision does your work improve? Who acts on it? What does a wrong recommendation cost?*"
+      ],
+      "id": "-s15vO6x_J7i"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "OUd0yAqQ_J7j"
+      },
+      "outputs": [],
+      "source": [],
+      "id": "OUd0yAqQ_J7j"
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "The Decision: Deciding which underperforming or decaying URL should be put into the queue for content rewrite and optimization.\n",
+        "\n",
+        "The Action: An SEO strategist or content writer will completely rewrite, expand, or re-optimize the chosen page.\n",
+        "\n",
+        "The Cost of a Wrong Call: If we recommend updating a page that Google will never rank higher, we waste hundreds of dollars in writer fees and hours of engineering time. If we miss a page that should have been updated, we lose thousands of free organic visits to a competitor."
+      ],
+      "metadata": {
+        "id": "o5Kl6tlmAU5k"
+      },
+      "id": "o5Kl6tlmAU5k"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "IQHJe6Ya_J7j"
+      },
+      "source": [
+        "## 3. Quick look at the data (2-3 real numbers)\n",
+        "\n",
+        "*Load the starter CSV below and show 2-3 real numbers that make your lane look worth the next 7 weeks.*"
+      ],
+      "id": "IQHJe6Ya_J7j"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "bcUqlEO-_J7k",
+        "outputId": "50ad48aa-7bcb-4ba1-8377-e66cfebfa438"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Total pages available for analysis: 30000\n",
+            "Percentage of pages with zero traffic over 90 days: 0.0%\n",
+            "Average age of pages in a downward trend: 236 days\n"
+          ]
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "df = pd.read_csv(\"https://raw.githubusercontent.com/klcatalon/ML-FLYRANK-INTERNSHIP/main/data/raw/content_refresh_anonymized.csv\")\n",
+        "\n",
+        "print(f\"Total pages available for analysis: {len(df)}\")\n",
+        "\n",
+        "zero_traffic_pct = (df[\"impressions_90d\"] == 0).mean() * 100\n",
+        "print(f\"Percentage of pages with zero traffic over 90 days: {zero_traffic_pct:.1f}%\")\n",
+        "\n",
+        "avg_age_decay = df[df[\"trend_direction\"] == \"down\"][\"content_age_days\"].mean()\n",
+        "print(f\"Average age of pages in a downward trend: {avg_age_decay:.0f} days\")"
+      ],
+      "id": "bcUqlEO-_J7k"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "mDdDLl8G_J7k"
+      },
+      "source": [
+        "## 4. Careful words: what I can and can't claim\n",
+        "\n",
+        "*Write what your work will be able to say (observed, directional, decision-support) — and what it never will (causal proof, 'predicting Google').*"
+      ],
+      "id": "mDdDLl8G_J7k"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "9D7yZG0e_J7l"
+      },
+      "outputs": [],
+      "source": [],
+      "id": "9D7yZG0e_J7l"
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "This project is designed purely for decision-support. My model will provide observed, directional recommendations to help human writers prioritize their weekly workloads. This work cannot and will not claim causal proof—I am not \"predicting Google's secret algorithm\" or guaranteeing that an update results in an exact #1 ranking. It is simply a tool to maximize the mathematical odds of a successful refresh."
+      ],
+      "metadata": {
+        "id": "edvWlMzwAYHv"
+      },
+      "id": "edvWlMzwAYHv"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "F9hjwU0X_J7l"
+      },
+      "source": [
+        "## Self-check\n",
+        "\n",
+        "Before you submit, confirm each line honestly:\n",
+        "\n",
+        "- [ ] Every section above is filled — markdown thinking AND the code that backs it\n",
+        "- [ ] The notebook runs top to bottom with no errors (Runtime → Run all)\n",
+        "- [ ] No client names, URLs, or private queries anywhere\n",
+        "- [ ] My claims use careful words: observed, measured, directional, decision-support\n",
+        "- [ ] Committed to my repo under `work/notebooks/` — then submit your repo URL on the card. Done."
+      ],
+      "id": "F9hjwU0X_J7l"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
