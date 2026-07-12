@@ -1,0 +1,411 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/klcatalon/ML-FLYRANK-INTERNSHIP/blob/main/w02_ml_task_framing.ipynb%20(done)\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "aekoedbPBAnn"
+      },
+      "source": [
+        "# ML-03 — Frame Your Lane as an ML Task\n",
+        "\n",
+        "[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/klcatalon/ML-01-FLYRANK-/blob/main/work/notebooks/w02_ml_task_framing.ipynb)\n",
+        "\n",
+        "This skeleton is yours to fill. Work the sections **in order** — each one has a one-line hint. Simple words, honest numbers.\n",
+        "\n",
+        "> Working with an AI assistant? Tell it to read `skills/README.md` first and load the one skill this assignment names on its card."
+      ],
+      "id": "aekoedbPBAnn"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "AOXvWpPZBAnu"
+      },
+      "source": [
+        "## 1. My lane as an ML task (type)\n",
+        "\n",
+        "*Classification, clustering, ranking, or scoring — which one, and why?*"
+      ],
+      "id": "AOXvWpPZBAnu"
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "I am framing this as a Classification and Scoring task. We want to predict a binary label for each page: 1 (High Potential / Worth Refreshing) or 0 (Low Potential / Leave Alone). Along with the classification, generating a probability score between $0.0$ and $1.0$ allows us to rank the final recommendations, so content managers can easily prioritize the highest-scoring pages first."
+      ],
+      "metadata": {
+        "id": "vFhAeiKJBKmU"
+      },
+      "id": "vFhAeiKJBKmU"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "-wFYrz7ZBAnw"
+      },
+      "outputs": [],
+      "source": [],
+      "id": "-wFYrz7ZBAnw"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "qRenYiMHBAnx"
+      },
+      "source": [
+        "## 2. Target or proxy\n",
+        "\n",
+        "*What would you predict? Where does that label come from — observed outcome or a defined rule?*"
+      ],
+      "id": "qRenYiMHBAnx"
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "What I am predicting: Whether a page will see a positive turnaround or growth trend post-refresh.\n",
+        "\n",
+        "Where the label comes from: This will be a defined rule (proxy label) built from observed historical outcomes in the data. We will define a successful target candidate using a rule such as: trend_direction == 'up' combined with a filter ensuring the page has an organic baseline (impressions_90d > 100)."
+      ],
+      "metadata": {
+        "id": "4sWS3v5sBSYj"
+      },
+      "id": "4sWS3v5sBSYj"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "geZVnv-bBAny"
+      },
+      "outputs": [],
+      "source": [],
+      "id": "geZVnv-bBAny"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "SPmiW0S2BAny"
+      },
+      "source": [
+        "## 3. Success metric\n",
+        "\n",
+        "*One metric you can defend. What number means 'good'?*"
+      ],
+      "id": "SPmiW0S2BAny"
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "The Metric: Precision @ K (specifically Precision@50).\n",
+        "\n",
+        "What number means 'good': A precision score above 75% in our top 50 recommendations is our target for success. Because content budgets are tight, we care deeply about minimizing False Positives—we cannot afford to tell a writer to spend hours rewriting a page that yields zero business value. Every recommended page must count."
+      ],
+      "metadata": {
+        "id": "VDTcY-RRBVD9"
+      },
+      "id": "VDTcY-RRBVD9"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "C5vt89DWBAnz"
+      },
+      "outputs": [],
+      "source": [],
+      "id": "C5vt89DWBAnz"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "sXjUzt6LBAnz"
+      },
+      "source": [
+        "## 4. The unit of analysis, as a real dataframe\n",
+        "\n",
+        "*Load your lane's slice and show it: one row = one what?*"
+      ],
+      "id": "sXjUzt6LBAnz"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "id": "A9YW07usBAn0",
+        "outputId": "0098c1e3-7aa9-49e9-d719-cddcf9097d01"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "   search_volume  impressions_90d  content_age_days trend_direction  is_target\n",
+              "0           10.0             3803               187            down          0\n",
+              "1           90.0            15320               445            down          0\n",
+              "2            0.0            12581               141            down          0\n",
+              "3           10.0            11751               463          stable          0\n",
+              "4            0.0            19140               263            down          0"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-4959e5e5-da73-4e07-9d62-e5d110d47481\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>search_volume</th>\n",
+              "      <th>impressions_90d</th>\n",
+              "      <th>content_age_days</th>\n",
+              "      <th>trend_direction</th>\n",
+              "      <th>is_target</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>10.0</td>\n",
+              "      <td>3803</td>\n",
+              "      <td>187</td>\n",
+              "      <td>down</td>\n",
+              "      <td>0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>90.0</td>\n",
+              "      <td>15320</td>\n",
+              "      <td>445</td>\n",
+              "      <td>down</td>\n",
+              "      <td>0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>0.0</td>\n",
+              "      <td>12581</td>\n",
+              "      <td>141</td>\n",
+              "      <td>down</td>\n",
+              "      <td>0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>10.0</td>\n",
+              "      <td>11751</td>\n",
+              "      <td>463</td>\n",
+              "      <td>stable</td>\n",
+              "      <td>0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>0.0</td>\n",
+              "      <td>19140</td>\n",
+              "      <td>263</td>\n",
+              "      <td>down</td>\n",
+              "      <td>0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-4959e5e5-da73-4e07-9d62-e5d110d47481')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-4959e5e5-da73-4e07-9d62-e5d110d47481 button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-4959e5e5-da73-4e07-9d62-e5d110d47481');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"df[preview_cols]\",\n  \"rows\": 5,\n  \"fields\": [\n    {\n      \"column\": \"search_volume\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 38.34057902536163,\n        \"min\": 0.0,\n        \"max\": 90.0,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          10.0,\n          90.0,\n          0.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"impressions_90d\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 5662,\n        \"min\": 3803,\n        \"max\": 19140,\n        \"num_unique_values\": 5,\n        \"samples\": [\n          15320,\n          19140,\n          12581\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"content_age_days\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 147,\n        \"min\": 141,\n        \"max\": 463,\n        \"num_unique_values\": 5,\n        \"samples\": [\n          445,\n          263,\n          141\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"trend_direction\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 2,\n        \"samples\": [\n          \"stable\",\n          \"down\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"is_target\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0,\n        \"min\": 0,\n        \"max\": 0,\n        \"num_unique_values\": 1,\n        \"samples\": [\n          0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 4
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Load the dataset directly from your public repository link\n",
+        "url = \"https://raw.githubusercontent.com/klcatalon/ML-FLYRANK-INTERNSHIP/main/data/raw/content_refresh_anonymized.csv\"\n",
+        "df = pd.read_csv(url)\n",
+        "\n",
+        "# Unit of Analysis: One row = One unique URL/Page\n",
+        "# Let's show a clean slice representing our target framing\n",
+        "df[\"is_target\"] = ((df[\"trend_direction\"] == \"up\") & (df[\"impressions_90d\"] > 0)).astype(int)\n",
+        "\n",
+        "# Display the first 5 rows with our core features and new target sketch\n",
+        "preview_cols = [\"search_volume\", \"impressions_90d\", \"content_age_days\", \"trend_direction\", \"is_target\"]\n",
+        "df[preview_cols].head()"
+      ],
+      "id": "A9YW07usBAn0"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "CTWLMkGGBAn1"
+      },
+      "source": [
+        "## 5. Why ML beats a fixed rule here\n",
+        "\n",
+        "*What makes the pattern too messy for an if-statement?*"
+      ],
+      "id": "CTWLMkGGBAn1"
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "While humans can easily write a simple rule like \"Refresh pages older than 180 days,\" real search intent patterns are far too messy for fixed if/else statements. A page's success depends on non-linear interactions: a high-volume keyword might be heavily decayed, while a lower-volume keyword on an older page might be perfectly poised to reclaim traffic. A machine learning model (like a Decision Tree or Random Forest) can automatically map out these complex combinations across dozens of signals simultaneously, optimizing our Precision far better than any hand-crafted heuristic."
+      ],
+      "metadata": {
+        "id": "Y87O2D_qBdum"
+      },
+      "id": "Y87O2D_qBdum"
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "VKUkMETqBAn1"
+      },
+      "outputs": [],
+      "source": [],
+      "id": "VKUkMETqBAn1"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "tB1__xhwBAn1"
+      },
+      "source": [
+        "## Self-check\n",
+        "\n",
+        "Before you submit, confirm each line honestly:\n",
+        "\n",
+        "- [ ] Every section above is filled — markdown thinking AND the code that backs it\n",
+        "- [ ] The notebook runs top to bottom with no errors (Runtime → Run all)\n",
+        "- [ ] No client names, URLs, or private queries anywhere\n",
+        "- [ ] My claims use careful words: observed, measured, directional, decision-support\n",
+        "- [ ] Committed to my repo under `work/notebooks/` — then submit your repo URL on the card. Done."
+      ],
+      "id": "tB1__xhwBAn1"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
